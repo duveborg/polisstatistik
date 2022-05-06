@@ -1,0 +1,241 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Polisstatistik</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: rgb(240, 242, 245);
+        }
+    </style>
+    <script>
+        window.onload = function () {
+
+            const polisdata = [
+                {
+                    år: "2020",
+                    poliser: 20942,
+                    civila: 12784,
+                    befolkning: 10379295
+                },
+                {
+                    år: "2019",
+                    poliser: 20423,
+                    civila: 11305,
+                    befolkning: 10327589
+                },
+                {
+                    år: "2018",
+                    poliser: 20040,
+                    civila: 10299,
+                    befolkning: 10230000
+                },
+                {
+                    år: "2017",
+                    poliser: 19741,
+                    civila: 9858,
+                    befolkning: 10120000
+                },
+                {
+                    år: "2016",
+                    poliser: 20025,
+                    civila: 9492,
+                    befolkning: 9995000
+                },
+                {
+                    år: "2015",
+                    poliser: 19903,
+                    civila: 8361,
+                    befolkning: 9851000
+                },
+                {
+                    år: "2014",
+                    poliser: 20051,
+                    civila: 8638,
+                    befolkning: 9747000
+                },
+                {
+                    år: "2013",
+                    poliser: 19911,
+                    civila: 8577,
+                    befolkning: 9644000
+                },
+                {
+                    år: "2012",
+                    poliser: 19890,
+                    civila: 8457,
+                    befolkning: 9519000
+                },
+                {
+                    år: "2011",
+                    poliser: 20398,
+                    civila: 7984,
+                    befolkning: 9449000
+                },
+                {
+                    år: "2010",
+                    poliser: 20292,
+                    civila: 7725,
+                    befolkning: 9378000
+                },
+                {
+                    år: "2009",
+                    poliser: 19144,
+                    civila: 7747,
+                    befolkning: 9299000
+                },
+                {
+                    år: "2008",
+                    poliser: 18321,
+                    civila: 7801,
+                    befolkning: 9220000
+                },
+                {
+                    år: "2007",
+                    poliser: 17866,
+                    civila: 7972,
+                    befolkning: 9148000
+                },
+                {
+                    år: "2006",
+                    poliser: 17423,
+                    civila: 7208,
+                    befolkning: 9081000
+                },
+                {
+                    år: "2005",
+                    poliser: 17073,
+                    civila: 6867,
+                    befolkning: 9030000
+                },
+                {
+                    år: "2004",
+                    poliser: 16891,
+                    civila: 6753,
+                    befolkning: 8994000
+                },
+                {
+                    år: "2003",
+                    poliser: 16292,
+                    civila: 6770,
+                    befolkning: 8958000
+                },
+                {
+                    år: "2002",
+                    poliser: 16149,
+                    civila: 6769,
+                    befolkning: 8925000
+                },
+                {
+                    år: "2001",
+                    poliser: 16120,
+                    civila: 6588,
+                    befolkning: 8896000
+                },
+                {
+                    år: "2000",
+                    poliser: 16089,
+                    civila: 6205,
+                    befolkning: 8872000
+                }
+            ].reverse()
+
+            const labels = polisdata.map(d => d.år)
+            const pliserPerCapita = polisdata.map(d => (d.poliser / d.befolkning) * 10000)
+            const antalPoliser = polisdata.map(d => d.poliser)
+            const antalCivilanställda = polisdata.map(d => d.civila)
+            const totaltAnställda = polisdata.map(d => d.civila + d.poliser)
+
+            new Chart(document.getElementById('per_capita').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'Poliser per 10 000 invånare',
+                        data: pliserPerCapita,
+                        borderColor: [
+                            '#1862a8'
+                        ],
+                        backgroundColor: [
+                            '#1862a8'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            })
+
+            new Chart(document.getElementById('poliser').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'Antal poliser',
+                        data: antalPoliser,
+                        borderColor: [
+                            '#1862a8'
+                        ],
+                        backgroundColor: [
+                            '#1862a8'
+                        ],
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'Civilanställda',
+                        data: antalCivilanställda,
+                        borderColor: [
+                            '#ffcc33'
+                        ],
+                        backgroundColor: [
+                            '#ffcc33'
+                        ],
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'Totalt',
+                        data: totaltAnställda,
+                        borderColor: [
+                            '#1aa260'
+                        ],
+                        backgroundColor: [
+                            '#1aa260'
+                        ],
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            })
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Statistik över polisanställda</h1>
+
+    <h2>Poliser per invånare</h2>
+    <canvas id="per_capita" width="400" height="100"></canvas>
+
+    <h2 style="margin-top: 50px;">Antal poliser</h2>
+    <canvas id="poliser" width="400" height="100"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</body>
+
+</html>
